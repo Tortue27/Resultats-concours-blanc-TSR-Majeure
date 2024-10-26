@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulter les Résultats Anonymement</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 10px;
+        }
+        h1 {
+            color: #333;
+        }
+        label, input, button {
+            display: block;
+            margin: 10px 0;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Consulter vos Résultats Anonymement</h1>
+    <form id="resultForm">
+        <label for="code">Entrez votre code personnel :</label>
+        <input type="text" id="code" required>
+        <button type="submit">Voir les Résultats</button>
+    </form>
+    <div id="result"></div>
+    <script>
+        document.getElementById('resultForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const code = document.getElementById('code').value;
+            fetch(`https://script.google.com/macros/shttps://script.google.com/macros/s/AKfycbwmtYVIRwkqNEeFiC-PlQe7B8Sgm3Ju8DBktRk8glfSlyenb9FviEEo9LZk3a87YJiE/exec/exec?code=${code}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').innerText = data.message || "Résultats non trouvés.";
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                });
+        });
+    </script>
+</body>
+</html>
